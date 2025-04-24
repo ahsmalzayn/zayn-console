@@ -5,26 +5,30 @@
 </head>
 <body>
   <h1>Zayn is online, Ashmal. Type below:</h1>
-  <form id="chat-form">
+
+  <form id="chat-form" onsubmit="return false;">
     <input type="text" id="message" placeholder="Type a message..." />
     <button type="submit">Send</button>
   </form>
+
   <pre id="response"></pre>
 
   <script>
-    const form = document.getElementById("chat-form");
-    form.onsubmit = async (e) => {
-      e.preventDefault();
-      const input = document.getElementById("message");
-      const res = await fetch("https://eoqm9e7ye4vezjk.m.pipedream.net", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input.value })
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("chat-form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const input = document.getElementById("message");
+        const res = await fetch("https://eoqm9e7ye4vezjk.m.pipedream.net", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: input.value }),
+        });
+        const data = await res.json();
+        document.getElementById("response").textContent =
+          data.steps?.chat?.return_value?.choices?.[0]?.message?.content || "Zayn is silent.";
       });
-      const data = await res.json();
-      document.getElementById("response").textContent =
-  data.steps?.chat?.return_value?.choices?.[0]?.message?.content || "Zayn is silent.";
-
+    });
   </script>
 </body>
 </html>
