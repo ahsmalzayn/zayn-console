@@ -15,7 +15,7 @@
     form.onsubmit = async (e) => {
       e.preventDefault();
       const input = document.getElementById("message");
-      const res = await fetch("https://zayn-backend-v2.onrender.com/chat", {
+      const res = await fetch("https://eoqm9e7ye4vezjk.m.pipedream.net", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input.value })
